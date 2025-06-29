@@ -7,20 +7,25 @@ allocatorTest() {
 
   Allocator::initialize();
 
-  auto p = Allocator::allocate<int>(200);
+  auto p1 = Allocator::allocate<int>(2);
+  auto p2 = Allocator::allocate<int>(1);
+  auto p3 = Allocator::allocate<int>(1);
+  auto p4 = Allocator::allocate<int>(5);
 
-  struct str{
-    double d;
-    bool b;
-  }* s = Allocator::allocate<str>(1);
+  Allocator::printMemoryMap();
+  Allocator::free(p2);
+  std::cout << "----------p2---------------" << std::endl;
+  Allocator::printMemoryMap();
+  Allocator::free(p3);
 
-  p[0] = 2, p[1] = 3;
+  std::cout << "----------p3--------------" << std::endl;
+  Allocator::printMemoryMap();
 
-  s->b = true;
-  s->d = 0.5;
+  Allocator::free(p1);
 
-  std::cout << p[0] << ", " << p[1] << std::endl;
-  std::cout << s->b << ", " << s->d << std::endl;
+  std::cout << "----------p1--------------" << std::endl;
+  Allocator::printMemoryMap();
+  Allocator::exit();
 }
 
 //
